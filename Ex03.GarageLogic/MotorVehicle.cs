@@ -48,7 +48,7 @@ namespace Ex03.GarageLogic
         {
             if(i_AirToInflate + m_CurrentAirPressure <= m_MaxAirPressure)
             {
-                m_CurrentAirPressure + = i_AirToInflate;
+                m_CurrentAirPressure += i_AirToInflate;
             }
             else
             {
