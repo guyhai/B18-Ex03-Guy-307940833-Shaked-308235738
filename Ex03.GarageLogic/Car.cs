@@ -12,7 +12,7 @@ namespace Ex03.GarageLogic
         private eNumOfDoors m_NumOfDoors;
         public Car()
         {
-            //TODO test
+            //TODO 
         }
         public enum eColor
         {
