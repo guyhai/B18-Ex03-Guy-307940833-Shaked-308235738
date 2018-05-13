@@ -23,6 +23,9 @@ namespace Ex03.GarageLogic
             m_Manufacture = string.Empty;
             m_EnergyPercentage = 0.0f;
         }
+        
+
+       
 
         public enum eVehicleStatus
         {
@@ -58,7 +61,7 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                //TODO implement ValueOutOfRangeException 
+                throw new ArgumentOutOfRangeException("Max air-pressure exceeded");
             }
         }
 

@@ -20,6 +20,8 @@ namespace Ex03.GarageLogic
             this.m_MaxFuelAmount = i_MaxFuelAmount;
         }
 
+
+       
         public void PutGas(float i_FuelAmount, eFuelType i_Type)
         {
             float amountAfterIncrease = m_AmountOfFuel + i_FuelAmount;

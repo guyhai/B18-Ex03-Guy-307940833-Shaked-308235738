@@ -51,11 +51,33 @@ namespace Ex03.GarageLogic
 
             return result;
         }
+        public void ChangeStatus(string i_PlateNumber, MotorVehicle.eVehicleStatus i_Status)
+        {
+            //TODO will change vehicle status according to license plate
+        }
+        public void InflateToMax(string i_PlateNumber)
+        {
+            //TODO inflate all wheels of a vehicle to max 
+        }
+        public void FuelVehicle(string i_PlateNumber, FuelEngine.eFuelType i_Type, float i_Amount)
+        {
+            //TODO fuel a vehicle
+        }
+        public void ChargeVehicle(string i_PlateNumber, float i_Amount)
+        {
+            //TODO charge a vehicle
+        }
+        public void ShowVehicleDetails(string i_PlateNumber)
+        {
+            //TODO show full details (manufacture, licence number,wheels(psi and manufacture), owner name, owner phone etc....)
+            //probably going to use all the ToString(s) methods
+        }
+
     }
 
     struct GarageCustomer
     {
-
+        //i think this might complicate things 
         private string m_Name;
         private string m_PhoneNumber;
         private MotorVehicle m_Vehicle;
