@@ -17,5 +17,7 @@ namespace Ex03.GarageLogic
             B1,
             B2
         }
+
+        
     }
 }

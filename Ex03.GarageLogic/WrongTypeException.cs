@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    class WrongTypeException<T> : Exception
+    class WrongTypeException<T> : ArgumentException
     {
         private T m_Expected;
         private T m_Actual;
