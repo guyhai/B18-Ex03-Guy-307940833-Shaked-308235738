@@ -9,20 +9,21 @@ namespace Ex03.GarageLogic
     public abstract class MotorVehicle
     {
         private List<Wheel> m_Wheels;
-        private string m_PlateNumber;
-        private string m_Manufacture;
-        private float m_EnergyPercentage;
-        private string m_Owner;
-        private string m_OwnerPhone;
+        private string m_PlateNumber { get; }
+        private string m_Manufacture { get; }
+        private float m_EnergyPercentage { get; }
+
+        private Owner m_Owner;
         private eVehicleStatus m_Status = eVehicleStatus.inRepair;
+
         protected MotorVehicle()
         {
-            m_PlateNumber = string.Empty;
-            m_EnergyPercentage = 0.0f;
-            m_OwnerPhone = string.Empty;
-            m_Manufacture = string.Empty;
-            m_Owner = string.Empty;
             m_Wheels = new List<Wheel>();
+            m_PlateNumber = string.Empty;
+            m_Manufacture = string.Empty;
+            m_EnergyPercentage = 0.0f;
+
+            m_Owner = new Owner(string.Empty, string.Empty);
             m_Status = eVehicleStatus.inRepair;
         }
 
@@ -31,6 +32,18 @@ namespace Ex03.GarageLogic
             inRepair,
             Repaired,
             Done
+        }
+
+        struct Owner
+        {
+            private string Name { get; }
+            private string PhoneNumber { get;}
+
+            public Owner(string i_Name, string i_PhoneNumber)
+            {
+                this.Name = i_Name;
+                this.PhoneNumber = i_PhoneNumber;
+            }
         }
     }
     public class Wheel
