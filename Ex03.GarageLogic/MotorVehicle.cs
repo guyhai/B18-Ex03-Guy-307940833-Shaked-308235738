@@ -113,6 +113,15 @@ namespace Ex03.GarageLogic
         }
 
 
+        /** Two motor vehicles will be considered equal if and only if their two plate numbers
+         *  are the same.
+         *
+         */
+        public bool Equals(MotorVehicle i_Other)
+        {
+            return i_Other.PlateNumber.Equals(this.PlateNumber);
+        }
+
 
     }
     public class Wheel

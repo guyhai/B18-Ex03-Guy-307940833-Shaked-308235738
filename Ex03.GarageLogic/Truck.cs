@@ -10,6 +10,5 @@ namespace Ex03.GarageLogic
     {
         private bool m_RiskyMaterials;
         private float m_MaxCarry;
-
     }
 }

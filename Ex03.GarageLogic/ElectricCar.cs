@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    class ElectricCar
+    class ElectricCar : Car
     {
+        private ElectricEngine m_Engine;
+
+        public ElectricCar( )
+        {
+            
+        }
     }
 }

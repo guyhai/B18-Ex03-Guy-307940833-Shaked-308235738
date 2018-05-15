@@ -22,10 +22,25 @@ namespace Ex03.GarageLogic
         }
 
 
+
+        public void addCar(string i_PlateNumber, string i_Name, string i_PhoneNumber)
+        {
+            GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
+
+            if (customer == null)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+        
         /** This has to be by license number and not the vehicle object
          *
          */
-        public void addCar(MotorVehicle i_Vehicle, string i_Name, string i_PhoneNumber)
+        private void addCar(MotorVehicle i_Vehicle, string i_Name, string i_PhoneNumber)
         {
             if (!DoesContainCar(i_Vehicle))
             {
@@ -39,18 +54,9 @@ namespace Ex03.GarageLogic
 
         private bool DoesContainCar(MotorVehicle i_Vehicle)
         {
-            bool result = false;
-            foreach (GarageCustomer customer in m_Customers)
-            {
-                if (customer.Vehicle.PlateNumber.Equals(i_Vehicle.PlateNumber))
-                {
-                    result = true;
-                    break;
-                }
-            }
-
-            return result;
+            return FindCustomerByPlateNumber(i_Vehicle.PlateNumber) != null;
         }
+
         public void ChangeStatus(string i_PlateNumber, MotorVehicle.eVehicleStatus i_Status)
         {
             //TODO will change vehicle status according to license plate
@@ -65,6 +71,7 @@ namespace Ex03.GarageLogic
         }
         public void ChargeVehicle(string i_PlateNumber, float i_Amount)
         {
+
             //TODO charge a vehicle
         }
         public void ShowVehicleDetails(string i_PlateNumber)
@@ -73,9 +80,25 @@ namespace Ex03.GarageLogic
             //probably going to use all the ToString(s) methods
         }
 
+        /** return null if it doesn't exist
+         *
+         */
+        private GarageCustomer FindCustomerByPlateNumber(string i_PlateNumber)
+        {
+            foreach (GarageCustomer customer in m_Customers)
+            {
+                if (customer.Vehicle.PlateNumber.Equals(i_PlateNumber))
+                {
+                    return customer;
+                }
+            }
+
+            return null;
+        }
+
     }
 
-    struct GarageCustomer
+    class GarageCustomer
     {
         //i think this might complicate things 
         private string m_Name;
@@ -90,8 +113,20 @@ namespace Ex03.GarageLogic
             this.m_Vehicle = i_Vehicle;
             
         }
-
         
+        /** A method that compares two customers.
+         *  By assumption, we don't support a customer with multiple vehicles,
+         *  therefore, two customers will be considered equal if they own the same car
+         *
+         *  Note that two cars are considered equal according to their plate number.
+         *
+         */
+        public bool Equals(GarageCustomer i_Other)
+        {
+            return i_Other.m_Vehicle.Equals(this.m_Vehicle);
+        }
+
+
 
         public string Name
         {
