@@ -37,9 +37,7 @@ namespace Ex03.GarageLogic
             }
         }
         
-        /** This has to be by license number and not the vehicle object
-         *
-         */
+        
         private void addCar(MotorVehicle i_Vehicle, string i_Name, string i_PhoneNumber)
         {
             if (!DoesContainCar(i_Vehicle))
@@ -59,15 +57,21 @@ namespace Ex03.GarageLogic
 
         public void ChangeStatus(string i_PlateNumber, MotorVehicle.eVehicleStatus i_Status)
         {
-            //TODO will change vehicle status according to license plate
+            GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
+            customer.Vehicle.Status = i_Status;
         }
         public void InflateToMax(string i_PlateNumber)
         {
-            //TODO inflate all wheels of a vehicle to max 
+            GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
+            foreach (Wheel wheel in customer.Vehicle.Wheels)
+            {
+                wheel.InflateToMax();
+            }
         }
         public void FuelVehicle(string i_PlateNumber, FuelEngine.eFuelType i_Type, float i_Amount)
         {
-            //TODO fuel a vehicle
+            GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
+            
         }
         public void ChargeVehicle(string i_PlateNumber, float i_Amount)
         {

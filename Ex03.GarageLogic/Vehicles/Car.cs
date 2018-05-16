@@ -11,6 +11,14 @@ namespace Ex03.GarageLogic
         private eColor m_Color;
         private eNumOfDoors m_NumOfDoors;
         private const int k_NumOfWheels = 4;
+
+        public Car(eColor i_Color, eNumOfDoors i_NumOfDoors)
+            :base()
+        {
+            m_Color = i_Color;
+            m_NumOfDoors = i_NumOfDoors;
+        }
+
         public override void Initialize(Dictionary<string, string> i_Form)
         {
             base.Initialize(i_Form);
@@ -31,6 +39,12 @@ namespace Ex03.GarageLogic
             m_NumOfDoors = numberOfDoorsStr;
             //also need to initialize wheels
         }
+
+        private eColor getColor(string i_Color)
+        {
+
+        }
+
         public override Dictionary<string, string> MakeForm()
         {
             Dictionary<string, string> form = base.MakeForm();

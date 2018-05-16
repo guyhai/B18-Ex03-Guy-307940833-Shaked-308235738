@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ex03.GarageLogic.Engines;
 
 namespace Ex03.GarageLogic
 {
@@ -10,35 +11,42 @@ namespace Ex03.GarageLogic
     {
         private List<Wheel> m_Wheels;
         private string m_PlateNumber;
-        private string m_Manufacture { get; set; }
-        private float m_EnergyPercentage { get; set; }
-        private string m_OwnerName { get; set; }
-        private string m_OwnerPhone { get; set; }
-        private eVehicleStatus m_Status;
+        private string m_Manufacture;
+        private float m_EnergyPercentage;
+
+        private IEngine m_Engine;
+
+        private eVehicleStatus m_Status = eVehicleStatus.inRepair;
 
 
+
+        protected MotorVehicle(List<Wheel> i_Wheels, string i_PlateNumber, string i_Manufacture,
+            float i_EnergyPercentage, IEngine i_Engine)
+        {
+            m_Wheels = i_Wheels;
+            m_PlateNumber = i_PlateNumber;
+            m_Manufacture = i_Manufacture;
+            m_EnergyPercentage = i_EnergyPercentage;
+        }
 
         protected MotorVehicle()
         {
-            m_Wheels = new List<Wheel>();
-            m_PlateNumber = string.Empty;
-            m_Manufacture = string.Empty;
-            m_EnergyPercentage = 0.0f;
-            m_Status = eVehicleStatus.inRepair;
+
         }
+
         public virtual void Initialize(Dictionary<string, string> i_Form)
         {
-            string ownerName;
-            if (!i_Form.TryGetValue("Car Owner", out ownerName))
-            {
-                throw new KeyNotFoundException("Car Owner Missing");
-            }
-
-            string ownerPhone;
-            if (!i_Form.TryGetValue("Owner Phone", out ownerPhone))
-            {
-                throw new KeyNotFoundException("Owner Phone Missing");
-            }
+//            string ownerName;
+//            if (!i_Form.TryGetValue("Car Owner", out ownerName))
+//            {
+//                throw new KeyNotFoundException("Car Owner Missing");
+//            }
+//
+//            string ownerPhone;
+//            if (!i_Form.TryGetValue("Owner Phone", out ownerPhone))
+//            {
+//                throw new KeyNotFoundException("Owner Phone Missing");
+//            }
 
             string manufacture;
             if (!i_Form.TryGetValue("Car Manufacture", out manufacture))
@@ -55,9 +63,7 @@ namespace Ex03.GarageLogic
             
 
             m_Manufacture = manufacture;
-            m_OwnerName = ownerName;
-            m_OwnerPhone = ownerPhone;
-            EnergyPercentage = energyPercent;
+//            EnergyPercentage = energyPercent;
 
         }
         public virtual Dictionary<string, string> MakeForm()
@@ -81,36 +87,68 @@ namespace Ex03.GarageLogic
             Done
         }
 
+        /** everyone can get and see the wheels but only internal classes can edit wheels.
+         *
+         */
+        public List<Wheel> Wheels
+        {
+            get { return m_Wheels; }
+            internal set { m_Wheels = value; }
+        }
+
+        public float EnergyPercentage
+        {
+            get { return m_EnergyPercentage; }
+            set { this.m_EnergyPercentage = value; }
+        }
+
+        public string Manufacture
+        {
+            get { return m_Manufacture; }
+        }
+
+        public IEngine Engine
+        {
+            get { return m_Engine; }
+            set { this.Engine = value; }
+        }
+
+        internal eVehicleStatus Status
+        {
+            get { return m_Status; }
+            set { m_Status = value; }
+        }
+
 
         public string PlateNumber
         {
             get { return this.m_PlateNumber; }
         }
-        public string EnergyPercentage
-        {
-            get { return m_EnergyPercentage.ToString(); }
-            set
-            {
-                float toSet = -1.0f;
-
-                try
-                {
-                    toSet = float.Parse(value);
-                }
-                catch (FormatException)
-                {
-                    throw new FormatException("invalid format for energy percentage");
-                }
-
-
-                if (!(toSet <= 100.00f) && (toSet >= 0.0f))   
-                {
-                    throw new ValueOutOfRangeException("energy percentage input out of range", 0.0f, 100.0f);
-                }
-
-                m_EnergyPercentage = toSet;
-            }
-        }
+//        public string EnergyPercentage
+//        {
+//            get { return m_EnergyPercentage.ToString(); }
+//            set
+//            {
+//                float toSet = -1.0f;
+//
+//                try
+//                {
+//                    toSet = float.Parse(value);
+//                }
+//                catch (FormatException)
+//                {
+//                    throw new FormatException("invalid format for energy percentage");
+//                }
+//
+//
+//                if (!(toSet <= 100.00f) && (toSet >= 0.0f))   
+//                {
+//                    throw new ValueOutOfRangeException("energy percentage input out of range", 0.0f, 100.0f);
+//                }
+//
+//                m_EnergyPercentage = toSet;
+//            }
+//        }
 
 
         /** Two motor vehicles will be considered equal if and only if their two plate numbers
@@ -129,13 +167,15 @@ namespace Ex03.GarageLogic
         private string m_Manufacture;
         private float m_CurrentAirPressure;
         private float m_MaxAirPressure;
-        public Wheel()
+
+
+        public Wheel(string i_Manufacture, float i_CurrentAirPressure, float i_MaxAirPressure)
         {
-            m_Manufacture = null;
-            m_CurrentAirPressure = 0.0f;
-            m_MaxAirPressure = 0.0f;
+            m_Manufacture = i_Manufacture;
+            m_CurrentAirPressure = i_CurrentAirPressure;
+            m_MaxAirPressure = i_MaxAirPressure;
         }
-        public void inflate(float i_AirToInflate)
+        public void Inflate(float i_AirToInflate)
         {
             if(i_AirToInflate + m_CurrentAirPressure <= m_MaxAirPressure)
             {
@@ -146,6 +186,12 @@ namespace Ex03.GarageLogic
                 throw new ArgumentOutOfRangeException("Max air-pressure exceeded");
             }
         }
+
+        public void InflateToMax()
+        {
+            Inflate(m_MaxAirPressure - m_CurrentAirPressure);
+        }
+        
 
         public override string ToString()
         {

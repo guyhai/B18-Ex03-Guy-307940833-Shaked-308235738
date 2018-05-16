@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    public class ElectricEngine
+    public class ElectricEngine : Engines.IEngine
     {
         private float m_BatteryTimeLeft;    //hours
         private float m_MaxBatteryLife;     //hours
@@ -22,6 +22,11 @@ namespace Ex03.GarageLogic
                 throw new ValueOutOfRangeException(
                     "Trying to charge an engine battery over the limit", 0, m_BatteryTimeLeft);
             }
+        }
+
+        public Type EngineType()
+        {
+            return this.GetType();
         }
     }
 }

@@ -38,20 +38,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Car.cs" />
-    <Compile Include="ElectricCar.cs" />
-    <Compile Include="ElectricEngine.cs" />
-    <Compile Include="ElectricMotorCycle.cs" />
-    <Compile Include="FueledCar.cs" />
-    <Compile Include="FueledMotorCycle.cs" />
-    <Compile Include="FueledTruck.cs" />
-    <Compile Include="FuelEngine.cs" />
+    <Compile Include="Engines\IEngine.cs" />
+    <Compile Include="Vehicles\Car.cs" />
+    <Compile Include="ElectricVehicles\ElectricCar.cs" />
+    <Compile Include="Engines\ElectricEngine.cs" />
+    <Compile Include="ElectricVehicles\ElectricMotorCycle.cs" />
+    <Compile Include="FueledVehicles\FueledCar.cs" />
+    <Compile Include="FueledVehicles\FueledMotorCycle.cs" />
+    <Compile Include="FueledVehicles\FueledTruck.cs" />
+    <Compile Include="Engines\FuelEngine.cs" />
     <Compile Include="Garage.cs" />
-    <Compile Include="MotorCycle.cs" />
+    <Compile Include="Vehicles\MotorCycle.cs" />
     <Compile Include="MotorVehicle.cs" />
-    <Compile Include="Truck.cs" />
+    <Compile Include="Vehicles\Truck.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="WrongTypeException.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

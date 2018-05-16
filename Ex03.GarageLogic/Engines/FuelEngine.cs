@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    public class FuelEngine
+    public class FuelEngine : Engines.IEngine
     {
 
         private eFuelType m_FuelType;
@@ -22,10 +22,10 @@ namespace Ex03.GarageLogic
 
 
        
-        public void PutGas(float i_FuelAmount, eFuelType i_Type)
+        public void PutGas(float i_FuelAmount, eFuelType i_FuelType)
         {
             float amountAfterIncrease = m_AmountOfFuel + i_FuelAmount;
-            if (i_Type == m_FuelType)
+            if (i_FuelType == m_FuelType)
             {
                 if (amountAfterIncrease < m_MaxFuelAmount)
                 {
@@ -39,9 +39,14 @@ namespace Ex03.GarageLogic
             }
             else
             {
-                throw new WrongTypeException<eFuelType>(m_FuelType, i_Type);
+                throw new WrongTypeException<eFuelType>(m_FuelType, i_FuelType);
             }
             
+        }
+
+        public Type EngineType()
+        {
+            return this.GetType();
         }
 
 
