@@ -1,0 +1,10 @@
+==========================Exercise Checking Report==========================
+Exercise No...........: 3
+First Student Details.: 307940833 - Guy Haimovitz
+Second Student Details: 308235738 - Shaked Dembo
+Delivery Date.........: 18 - May- 2018
+Delivered In Delay....: Yes
+Delay Reason..........: Discovered bugs too late
+Visual Studio Version.: 2017
+Comments..............: no comments
+=======================End Exercise Checking Report=========================

@@ -37,7 +37,7 @@ namespace Ex03.ConsuleUi
             Console.WriteLine("\nMotor Vehicle Questions");
  
             string Manufacture = UserCommunicator.getStringFromUser("Your vehicle's Manufacturer");
-            float EnergyPercentage = UserCommunicator.getFloatFromUser("Your energy percentage");
+            float EnergyPercentage = UserCommunicator.getFloatInRange("Your vehicle's energy percentage", 0, 100);
 
             m_DataBase.m_Manufacture = Manufacture;
             m_DataBase.m_EnergyPercentage = EnergyPercentage;

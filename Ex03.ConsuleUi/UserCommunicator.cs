@@ -57,6 +57,7 @@ namespace Ex03.ConsuleUi
         public static FuelEngine.eFuelType toFuelType(string i_FuelType)
         {
             FuelEngine.eFuelType fuelType;
+            i_FuelType = i_FuelType.ToLower();
 
             if (i_FuelType.Equals("soler"))
             {

@@ -17,22 +17,36 @@ namespace Ex03.GarageLogic
             m_MaxBatteryLife = i_MaxBatteryLife;
         }
 
-        public void chargeBattery(float i_AmountToCharge)
+        public bool chargeBattery(float i_AmountToCharge)
         {
+            bool isCharged = false;
             if (i_AmountToCharge + m_BatteryTimeLeft > m_MaxBatteryLife)
             {
                 m_BatteryTimeLeft += i_AmountToCharge;
+                isCharged = true;
             }
             else
             {
                 throw new ValueOutOfRangeException(
                     "Trying to charge an engine battery over the limit", 0, m_BatteryTimeLeft);
             }
+
+            return isCharged;
         }
 
         public Type EngineType()
         {
             return this.GetType();
+        }
+
+        public override string ToString()
+        {
+            
+            string res = $@"{base.ToString()}
+Type of Engine: Electric
+Max Battery Life: {m_MaxBatteryLife}
+Battery Time Left: {m_BatteryTimeLeft}";
+            return res;
         }
     }
 }

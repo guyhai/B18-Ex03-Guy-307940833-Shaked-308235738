@@ -76,7 +76,7 @@ namespace Ex03.ConsuleUi
                     break;
 
                 case 2:
-
+                    DisplayAllPlateNumbersFiltered();
                     break;
                 case 3:
                     changeCarStatus();
@@ -90,7 +90,13 @@ namespace Ex03.ConsuleUi
                 case 6:
                     chargeUpElectric();
                     break;
-                    
+                case 7:
+                    printVehicleDetails();
+                    break;
+                case 8:
+                    Console.WriteLine("Bye Bye\nPress any key to exit...");
+                    Console.ReadLine();
+                    return;                  
 
             }
             Console.WriteLine("Press any key to continue");
@@ -99,23 +105,117 @@ namespace Ex03.ConsuleUi
             Start();
         }
 
-        private void FuelUp()
+        private void DisplayAllPlateNumbersFiltered()
         {
-            
+            List<string> toPrintPayed = m_Garage.filterPlateNumbersByStatus(MotorVehicle.eVehicleStatus.Payed);
+            List<string> toPrintRepaired = m_Garage.filterPlateNumbersByStatus(MotorVehicle.eVehicleStatus.Repaired);
+            List<string> toPrintInRepair = m_Garage.filterPlateNumbersByStatus(MotorVehicle.eVehicleStatus.inRepair);
 
+            Console.WriteLine("In Repair");
+            foreach (string s in toPrintInRepair)
+            {
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine("Repaired");
+            foreach (string s in toPrintRepaired)
+            {
+                Console.WriteLine(s);
+            }
+
+            Console.WriteLine("Payed");
+            foreach (string s in toPrintPayed)
+            {
+                Console.WriteLine(s);
+            }
+
+            Console.ReadLine();
         }
 
-        private void InflateToMax()
+        private void printVehicleDetails()
         {
-            bool inflated = m_Garage.InflateToMax(getPlateNumber());
+            string plateNumber = getPlateNumber();
+            bool isEnrolled = m_Garage.isCustomerEnrolled(plateNumber);
 
-            if (inflated)
+            if (isEnrolled)
             {
-                Console.WriteLine("Wheels have been inflated");
+                Console.WriteLine(m_Garage.FindCustomerByPlateNumber(plateNumber));
+            }
+            else
+            {
+                Console.WriteLine("Car not found have a blessed day");
+            }
+        }
+
+        private void chargeUpElectric()
+        {
+            string plateNumber = getPlateNumber();
+            bool charged = m_Garage.isCustomerEnrolled(plateNumber);
+
+            if (charged)
+            {
+                float amount = UserCommunicator.getFloatFromUser("How much to charge");
+                try
+                {
+                    charged = m_Garage.ChargeVehicle(plateNumber, amount);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Wrong arguments, vehicles haven't been charged");
+                }
             }
             else
             {
                 printNotEnrolled();
+            }
+
+        }
+
+        private void FuelUp()
+        {
+            string plateNumber = getPlateNumber();
+            bool fueled = m_Garage.isCustomerEnrolled(plateNumber);
+
+            if (fueled)
+            {
+                float fuel = UserCommunicator.getFloatFromUser("How much fuel to put in");
+                FuelEngine.eFuelType type = UserCommunicator.toFuelType(
+                    UserCommunicator.getStringThatEqualsOneOf("Fuel Type",
+                        new string[] {"Soler", "Octan95", "Octan96", "Octan98"}, false));
+
+                try
+                {
+                    fueled = m_Garage.FuelVehicle(plateNumber, fuel, type);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Wrong arguments, vehicles haven't been fueled up.");
+                }
+            }
+            else
+            {
+                printNotEnrolled();
+            }
+        }
+
+        private void InflateToMax()
+        {
+            try
+            {
+                bool inflated = m_Garage.InflateToMax(getPlateNumber());
+
+                if (inflated)
+                {
+                    Console.WriteLine("Wheels have been inflated");
+                }
+                else
+                {
+                    printNotEnrolled();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Wrong arguments, wheels haven't been inflated");
             }
         }
 

@@ -5,9 +5,13 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex03.GarageLogic", "Ex03.GarageLogic\Ex03.GarageLogic.csproj", "{44DB40ED-0A02-4E32-AF74-D4F2AC59DAD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex03.ConsuleUI", "Ex03.ConsuleUi\Ex03.ConsuleUI.csproj", "{8DDAB096-9020-47E7-9F87-67656A7E6C39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex03.ConsoleUI", "Ex03.ConsuleUi\Ex03.ConsoleUI.csproj", "{8DDAB096-9020-47E7-9F87-67656A7E6C39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Debugger", "Debugger\Debugger.csproj", "{05DC50FB-BC16-4E96-921E-005C226A376A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E1868544-499C-4E0F-B8A3-11499C662A72}"
+	ProjectSection(SolutionItems) = preProject
+		B18 Ex03 Guy 307940833 Shaked 308235738.docx = B18 Ex03 Guy 307940833 Shaked 308235738.docx
+		details.txt = details.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +27,6 @@ Global
 		{8DDAB096-9020-47E7-9F87-67656A7E6C39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DDAB096-9020-47E7-9F87-67656A7E6C39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DDAB096-9020-47E7-9F87-67656A7E6C39}.Release|Any CPU.Build.0 = Release|Any CPU
-		{05DC50FB-BC16-4E96-921E-005C226A376A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{05DC50FB-BC16-4E96-921E-005C226A376A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{05DC50FB-BC16-4E96-921E-005C226A376A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{05DC50FB-BC16-4E96-921E-005C226A376A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

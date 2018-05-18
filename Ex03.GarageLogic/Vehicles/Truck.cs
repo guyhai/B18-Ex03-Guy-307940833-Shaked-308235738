@@ -18,5 +18,15 @@ namespace Ex03.GarageLogic
             m_RiskyMaterials = mRiskyMaterials;
             m_MaxCarry = mMaxCarry;
         }
+
+        public override string ToString()
+        {
+            string res = $@"{base.ToString()}
+Carries Risky Materials: {m_RiskyMaterials}
+Number of Doors: {m_MaxCarry}";
+            return res;
+        }
     }
+
+   
 }

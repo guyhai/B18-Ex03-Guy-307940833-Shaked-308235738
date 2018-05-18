@@ -35,5 +35,13 @@ namespace Ex03.GarageLogic
             Four,
             Five
         }
+
+        public override string ToString()
+        {
+            string res =  $@"{base.ToString()}
+Color: {m_Color}
+Number of Doors: {m_NumOfDoors}";
+            return res;
+        }
     }
 }

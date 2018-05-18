@@ -110,8 +110,19 @@ namespace Ex03.GarageLogic
             return i_Other.PlateNumber.Equals(this.PlateNumber);
         }
 
+        public override string ToString()
+        {
+            string res = $@"Plate Number: {m_PlateNumber}
+Manufacturer: {m_Manufacture}
+Status: {m_Status}
+Engine: {Engine}
+Wheels: {Wheels}";
+            return res;
+        }
 
     }
+
+    
     public class Wheel
     {
         private string m_Manufacture;
@@ -147,7 +158,7 @@ namespace Ex03.GarageLogic
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("Manufacturer: ");
-            stringBuilder.Append(m_Manufacture.ToString());
+            stringBuilder.Append(m_Manufacture);
             stringBuilder.Append(" ");
             stringBuilder.Append("Current Air Pressure: ");
             stringBuilder.Append(m_CurrentAirPressure.ToString());
@@ -168,5 +179,7 @@ namespace Ex03.GarageLogic
             get { return m_Manufacture; }
             set { m_Manufacture = value; }
         }
+
+        
     }
 }

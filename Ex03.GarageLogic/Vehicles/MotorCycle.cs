@@ -27,6 +27,13 @@ namespace Ex03.GarageLogic
             B2
         }
 
-        
+        public override string ToString()
+        {
+            string res = $@"{base.ToString()}
+Engine Volume: {m_EngineVolume}
+License Type: {m_LicenseType}";
+            return res;
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ex03.GarageLogic.Engines;
 
 namespace Ex03.GarageLogic
 {
@@ -19,35 +20,6 @@ namespace Ex03.GarageLogic
         public void Add(GarageCustomer i_customer)
         {
             m_Customers.Add(i_customer);
-        }
-
-
-
-       // public void addCar(string i_PlateNumber, string i_Name, string i_PhoneNumber)
-//          {
-//            GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
-//
-//            if (customer == null)
-//            {
-//
-  //          }
-    //        else
-      //      {
-      //
-        //    }
-        //}
-        
-        
-        private void addCar(MotorVehicle i_Vehicle, string i_Name, string i_PhoneNumber)
-        {
-            if (!DoesContainCar(i_Vehicle))
-            {
-                m_Customers.Add(new GarageCustomer(i_Name, i_PhoneNumber, i_Vehicle));
-            }
-            else
-            {
-
-            }
         }
 
         private bool DoesContainCar(MotorVehicle i_Vehicle)
@@ -76,20 +48,60 @@ namespace Ex03.GarageLogic
 
             return result;
         }
-        public void FuelVehicle(string i_PlateNumber, FuelEngine.eFuelType i_Type, float i_Amount)
+        public bool FuelVehicle(string i_PlateNumber, float i_Amount, FuelEngine.eFuelType i_Type)
         {
+            bool isFueled = false;
             GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
-            
-        }
-        public void ChargeVehicle(string i_PlateNumber, float i_Amount)
-        {
+            if (customer != null)
+            {
 
-            //TODO charge a vehicle
+                IEngine engine = customer.Vehicle.Engine;
+                if (engine.EngineType() == typeof(FuelEngine))
+                {
+                    FuelEngine fuelEngine = (FuelEngine) engine;
+                    if (i_Type.Equals(fuelEngine.FuelType))
+                    {
+                        isFueled = fuelEngine.PutGas(i_Amount);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Wrong type of fuel");
+                    }
+
+                }
+                else
+                {
+                    throw new ArgumentException("Trying to put gas in an electric engine");
+                }
+            }
+
+            return isFueled;
+
+
         }
-        public void ShowVehicleDetails(string i_PlateNumber)
+        public bool ChargeVehicle(string i_PlateNumber, float i_Amount)
         {
-            //TODO show full details (manufacture, licence number,wheels(psi and manufacture), owner name, owner phone etc....)
-            //probably going to use all the ToString(s) methods
+            bool isCharged = false;
+
+            GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
+            if (customer == null)
+            {
+                return false;
+            }
+            IEngine engine = customer.Vehicle.Engine;
+
+            if (engine.EngineType() == typeof(ElectricEngine))
+            {
+                ElectricEngine electricEngine = (ElectricEngine) engine;
+
+                isCharged = electricEngine.chargeBattery(i_Amount);
+            }
+            else
+            {
+                throw new ArgumentException("Trying to put gas in an electric engine");
+            }
+
+            return isCharged;
         }
 
         /** returns null if it doesn't exist
@@ -111,6 +123,14 @@ namespace Ex03.GarageLogic
         public bool isCustomerEnrolled(string i_PlateNumber)
         {
             return FindCustomerByPlateNumber(i_PlateNumber) != null;
+        }
+
+        public List<string> filterPlateNumbersByStatus(MotorVehicle.eVehicleStatus i_Status)
+        {
+            List<string> res = (from customer in m_Customers
+                                where customer.Vehicle.Status == i_Status
+                select customer.Vehicle.PlateNumber).ToList();
+            return res;
         }
 
         
@@ -160,6 +180,14 @@ namespace Ex03.GarageLogic
         {
             get { return this.m_Vehicle; }
             set { this.m_Vehicle = value; }
+        }
+
+        public override string ToString()
+        {
+            return $@"Customer Name: {Name}
+Customer Phone Number: {PhoneNumber}
+Customer Vehicle:
+{Vehicle}";
         }
 
     }

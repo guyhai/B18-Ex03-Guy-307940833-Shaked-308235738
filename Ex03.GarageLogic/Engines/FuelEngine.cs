@@ -22,26 +22,25 @@ namespace Ex03.GarageLogic
 
 
        
-        public void PutGas(float i_FuelAmount, eFuelType i_FuelType)
+        public bool PutGas(float i_FuelAmount)
         {
+            bool res = false;
             float amountAfterIncrease = m_AmountOfFuel + i_FuelAmount;
-            if (i_FuelType == m_FuelType)
+            
+            if (amountAfterIncrease < m_MaxFuelAmount)
             {
-                if (amountAfterIncrease < m_MaxFuelAmount)
-                {
-                    m_AmountOfFuel = amountAfterIncrease;
-                }
-                else
-                {
-                    throw new ValueOutOfRangeException(
-                        "Trying to put amount of fuel that exceeds the max of the engine", 0, m_MaxFuelAmount);
-                }
+                m_AmountOfFuel = amountAfterIncrease;
+                res = true;
             }
             else
             {
-                throw new WrongTypeException<eFuelType>(m_FuelType, i_FuelType);
+                throw new ValueOutOfRangeException(
+                    "Trying to put amount of fuel that exceeds the max of the engine", 0, m_MaxFuelAmount);
             }
-            
+
+            return res;
+
+
         }
 
         public Type EngineType()
@@ -49,6 +48,15 @@ namespace Ex03.GarageLogic
             return this.GetType();
         }
 
+        public float MaxFuelAmount
+        {
+            get { return m_MaxFuelAmount; }
+        }
+
+        public eFuelType FuelType
+        {
+            get { return m_FuelType; }
+        }
 
         public enum eFuelType
         {
@@ -56,6 +64,17 @@ namespace Ex03.GarageLogic
             Octan95,
             Octan96,
             Octan98
+        }
+
+        public override string ToString()
+        {
+
+            string res = $@"{base.ToString()}
+Type of Engine: Fuel Engine
+Fuel Type: {m_FuelType}
+Max Fuel Amount: {m_MaxFuelAmount}
+Amount Of Fuel Left: {m_AmountOfFuel}";
+            return res;
         }
 
     }
