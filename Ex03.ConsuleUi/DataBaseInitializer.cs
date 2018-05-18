@@ -16,8 +16,8 @@ namespace Ex03.ConsuleUi
         public DataBase InitializeVehicle()
         {
             this.m_DataBase = new DataBase();
-            InitializeClient();
             InitializeMotorVehicle();
+            InitializeClient();
             return this.m_DataBase;
         }
 
@@ -35,15 +35,11 @@ namespace Ex03.ConsuleUi
         private void InitializeMotorVehicle()
         {
             Console.WriteLine("\nMotor Vehicle Questions");
-            string PlateNumber = UserCommunicator.getStringFromUser("Your vehicle's plate number");
+ 
             string Manufacture = UserCommunicator.getStringFromUser("Your vehicle's Manufacturer");
-
             float EnergyPercentage = UserCommunicator.getFloatFromUser("Your energy percentage");
-            
 
-            m_DataBase.m_PlateNumber = PlateNumber;
             m_DataBase.m_Manufacture = Manufacture;
-
             m_DataBase.m_EnergyPercentage = EnergyPercentage;
          
             InitializeVehicleByType();
@@ -93,10 +89,27 @@ namespace Ex03.ConsuleUi
 
         private void InitializFuelEngine()
         {
-            FuelEngine.eFuelType FuelType = UserCommunicator.toFuelType(UserCommunicator.getStringThatEqualsOneOf(
-                "Your vehicle's fuel type", new string[] { "Soler", "Octan95", "Octan96", "Octan98" }, false));
-            float AmountOfFuel = UserCommunicator.getFloatFromUser("Amount of fuel left in vehicle:");
-            float MaxFuelAmount = UserCommunicator.getFloatFromUser("Tunk capaciy (max amount of fuel in the vehicle)");
+            FuelEngine.eFuelType FuelType;
+            float AmountOfFuel = UserCommunicator.getFloatFromUser("How much fuel do you have left");
+            float MaxFuelAmount;
+
+            switch (m_DataBase.m_VehicleType)
+            {
+                case eVehicleType.Car:
+                    MaxFuelAmount = 45.0f;
+                    FuelType = FuelEngine.eFuelType.Octan98;
+                    break;
+
+                case eVehicleType.Truck:
+                    MaxFuelAmount = 115.0f;
+                    FuelType = FuelEngine.eFuelType.Octan96;
+                    break;
+
+                default:     // eVehicleType.MotorCycle
+                    MaxFuelAmount = 6.0f;
+                    FuelType = FuelEngine.eFuelType.Octan96;
+                    break;
+            }
 
             m_DataBase.m_FuelType = FuelType;
             m_DataBase.m_AmountOfFuel = AmountOfFuel;
@@ -106,7 +119,18 @@ namespace Ex03.ConsuleUi
         private void InitializElectricEngine()
         {
             float BatteryTimeLeft = UserCommunicator.getFloatFromUser("Your electric engine's battery's remaining time");
-            float MaxBatteryLife = UserCommunicator.getFloatFromUser("Your electric engine's maximum battery life");
+            float MaxBatteryLife;
+
+            switch (m_DataBase.m_VehicleType)
+            {
+                case eVehicleType.Car:
+                    MaxBatteryLife = 3.2f;
+                    break;
+
+                default:     // eVehicleType.MotorCycle
+                    MaxBatteryLife = 1.8f;
+                    break;
+            }
 
             m_DataBase.m_BatteryTimeLeft = BatteryTimeLeft;
             m_DataBase.m_MaxBatteryLife = MaxBatteryLife;
@@ -114,8 +138,13 @@ namespace Ex03.ConsuleUi
 
         private void InitializEngine()
         {
-            bool isElectricEngine = UserCommunicator.getBoolFromUser("Is your vehicle's engine electric");
-            m_DataBase.m_IsElectric = isElectricEngine;
+            bool isElectricEngine = false;
+            if (m_DataBase.m_VehicleType != eVehicleType.Truck)
+            {
+                isElectricEngine = UserCommunicator.getBoolFromUser("Is your vehicle's engine electric");
+                m_DataBase.m_IsElectric = isElectricEngine;
+            }
+
             if (isElectricEngine)
             {
                 InitializElectricEngine();

@@ -23,8 +23,8 @@ namespace Ex03.ConsuleUi
                 sufix.Append(", ");
             }
 
-            sufix.Remove(sufix.Length - 1, 2);
-            sufix.Append(" ]");
+            sufix.Remove(sufix.Length - 2, 2);
+            sufix.Append("]");
             
             do
             {
@@ -78,6 +78,26 @@ namespace Ex03.ConsuleUi
             return fuelType;
         }
 
+        public static MotorVehicle.eVehicleStatus ToVehicleStatus(string i_Status)
+        {
+            MotorVehicle.eVehicleStatus result;
+            i_Status = i_Status.ToLower();
+
+            if (i_Status.Equals("payed"))
+            {
+                result = MotorVehicle.eVehicleStatus.Payed;
+            }
+            else if (i_Status.Equals("in repair"))
+            {
+                result = MotorVehicle.eVehicleStatus.inRepair;
+            }
+            else                    //repaired
+            {
+                result = MotorVehicle.eVehicleStatus.Repaired;
+            }
+            return result;
+        }
+
         public static MotorCycle.eLicense ToLicense(string i_License)
         {
             MotorCycle.eLicense license;
@@ -102,14 +122,25 @@ namespace Ex03.ConsuleUi
             return license;
         }
 
-        
+
 
         public static int getIntInRange(string i_Msg, int i_Min, int i_Max)
         {
             int fromUser;
             do
             {
-                fromUser = getIntFromUser(i_Msg + " [i_Max, i_Min]: ");
+                fromUser = getIntFromUser(i_Msg + $" [{i_Min}, {i_Max}]: ");
+            } while (fromUser > i_Max || fromUser < i_Min);
+
+            return fromUser;
+        }
+
+        public static float getFloatInRange(string i_Msg, float i_Min, float i_Max)
+        {
+            float fromUser;
+            do
+            {
+                fromUser = getIntFromUser(i_Msg + $" [{i_Min}, {i_Max}]: ");
             } while (fromUser > i_Max || fromUser < i_Min);
 
             return fromUser;
@@ -169,20 +200,31 @@ namespace Ex03.ConsuleUi
         public static List<Wheel> getWheelsFromUser(eVehicleType i_VehicleType)
         {
             Console.WriteLine("\nWheels Questions");
-            int numOfWheels = getIntFromUser("How many wheels does your car have");
+            int numOfWheels = (int) i_VehicleType;
 
             List<Wheel> wheels = new List<Wheel>();
-            Wheel wheel = getWheelFromUser();
-            bool allWheelsTheSame = getBoolFromUser("Are all wheels the same");
-            for (int i = 1; i < numOfWheels; i++)
-            {
-                
-                if (!allWheelsTheSame)
-                {
-                    wheel = getWheelFromUser();
-                }
 
-                wheels.Add(wheel);
+            string Manufacture = getStringFromUser("What is your wheel's brand");
+            float WheelPresure;
+
+            for (int i = 0; i < numOfWheels; i++)
+            {
+
+                switch (i_VehicleType)
+                {
+                    case eVehicleType.Car:
+                        WheelPresure = getFloatInRange("What's your wheel's air pressure", 0, 32);
+                        wheels.Add(new Wheel(Manufacture, WheelPresure, 32));
+                        break;
+                    case eVehicleType.MotorCycle:
+                        WheelPresure = getFloatInRange("What's your wheel's air pressure", 0, 30);
+                        wheels.Add(new Wheel(Manufacture, WheelPresure, 30));
+                        break;
+                    default:
+                        WheelPresure = getFloatInRange("What's your wheel's air pressure", 0, 32);
+                        wheels.Add(new Wheel(Manufacture, WheelPresure, 32));
+                        break;
+                }
             }
 
             return wheels;

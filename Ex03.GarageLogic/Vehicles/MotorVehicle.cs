@@ -26,6 +26,7 @@ namespace Ex03.GarageLogic
             m_PlateNumber = i_PlateNumber;
             m_Manufacture = i_Manufacture;
             m_EnergyPercentage = i_EnergyPercentage;
+            m_Engine = i_Engine;
         }
 
        
@@ -33,7 +34,7 @@ namespace Ex03.GarageLogic
         {
             inRepair,
             Repaired,
-            Done
+            Payed
         }
 
         /** everyone can get and see the wheels but only internal classes can edit wheels.

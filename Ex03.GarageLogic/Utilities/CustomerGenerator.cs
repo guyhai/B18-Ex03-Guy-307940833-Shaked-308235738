@@ -7,7 +7,7 @@ using Ex03.GarageLogic.Engines;
 
 namespace Ex03.GarageLogic
 {
-    static class CustomerGenerator
+    public static class CustomerGenerator
     {
 
         public static GarageCustomer Start(DataBase i_UserInput)

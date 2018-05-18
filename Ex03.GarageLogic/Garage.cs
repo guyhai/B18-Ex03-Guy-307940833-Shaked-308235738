@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
             this.m_Customers = new List<GarageCustomer>();
         }
 
-        private void addCustomer(GarageCustomer i_customer)
+        public void Add(GarageCustomer i_customer)
         {
             m_Customers.Add(i_customer);
         }
@@ -60,13 +60,21 @@ namespace Ex03.GarageLogic
             GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
             customer.Vehicle.Status = i_Status;
         }
-        public void InflateToMax(string i_PlateNumber)
+        public bool InflateToMax(string i_PlateNumber)
         {
+            bool result = false;
             GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
-            foreach (Wheel wheel in customer.Vehicle.Wheels)
+            if (customer != null)
             {
-                wheel.InflateToMax();
+                foreach (Wheel wheel in customer.Vehicle.Wheels)
+                {
+                    wheel.InflateToMax();
+                }
+
+                result = true;
             }
+
+            return result;
         }
         public void FuelVehicle(string i_PlateNumber, FuelEngine.eFuelType i_Type, float i_Amount)
         {
@@ -87,7 +95,7 @@ namespace Ex03.GarageLogic
         /** returns null if it doesn't exist
          *
          */
-        private GarageCustomer FindCustomerByPlateNumber(string i_PlateNumber)
+        public GarageCustomer FindCustomerByPlateNumber(string i_PlateNumber)
         {
             foreach (GarageCustomer customer in m_Customers)
             {
@@ -100,9 +108,15 @@ namespace Ex03.GarageLogic
             return null;
         }
 
+        public bool isCustomerEnrolled(string i_PlateNumber)
+        {
+            return FindCustomerByPlateNumber(i_PlateNumber) != null;
+        }
+
+        
     }
 
-    class GarageCustomer
+    public class GarageCustomer
     {
         
         private string m_Name;
