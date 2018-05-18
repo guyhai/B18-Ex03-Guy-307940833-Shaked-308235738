@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Ex03.GarageLogic.Engines
 {
     /* By our implemetation currently there is no common fields or methods between
-     * the electric engine and the fueled one except that conceptually they are both
+     * the electric engine and the fueled one except that, conceptually they are both
      * engines.
      *
      */

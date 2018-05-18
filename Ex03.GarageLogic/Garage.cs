@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    class Garage
+    public class Garage
     {
         private List<GarageCustomer> m_Customers;
 
@@ -23,19 +23,19 @@ namespace Ex03.GarageLogic
 
 
 
-        public void addCar(string i_PlateNumber, string i_Name, string i_PhoneNumber)
-        {
-            GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
-
-            if (customer == null)
-            {
-
-            }
-            else
-            {
-
-            }
-        }
+       // public void addCar(string i_PlateNumber, string i_Name, string i_PhoneNumber)
+//          {
+//            GarageCustomer customer = FindCustomerByPlateNumber(i_PlateNumber);
+//
+//            if (customer == null)
+//            {
+//
+  //          }
+    //        else
+      //      {
+      //
+        //    }
+        //}
         
         
         private void addCar(MotorVehicle i_Vehicle, string i_Name, string i_PhoneNumber)
@@ -84,7 +84,7 @@ namespace Ex03.GarageLogic
             //probably going to use all the ToString(s) methods
         }
 
-        /** return null if it doesn't exist
+        /** returns null if it doesn't exist
          *
          */
         private GarageCustomer FindCustomerByPlateNumber(string i_PlateNumber)
@@ -104,7 +104,7 @@ namespace Ex03.GarageLogic
 
     class GarageCustomer
     {
-        //i think this might complicate things 
+        
         private string m_Name;
         private string m_PhoneNumber;
         private MotorVehicle m_Vehicle;

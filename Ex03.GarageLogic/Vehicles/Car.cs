@@ -3,56 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ex03.GarageLogic.Engines;
 
 namespace Ex03.GarageLogic
 {
-    public abstract class Car : MotorVehicle
+    public class Car : MotorVehicle
     {
         private eColor m_Color;
         private eNumOfDoors m_NumOfDoors;
         private const int k_NumOfWheels = 4;
 
-        public Car(eColor i_Color, eNumOfDoors i_NumOfDoors)
-            :base()
+        protected internal Car(List<Wheel> i_Wheels, string i_PlateNumber, string i_Manufacture, float i_EnergyPercentage, IEngine i_Engine, eColor mColor, eNumOfDoors mNumOfDoors) : 
+            base(i_Wheels, i_PlateNumber, i_Manufacture, i_EnergyPercentage, i_Engine)
         {
-            m_Color = i_Color;
-            m_NumOfDoors = i_NumOfDoors;
+            m_Color = mColor;
+            m_NumOfDoors = mNumOfDoors;
         }
 
-        public override void Initialize(Dictionary<string, string> i_Form)
-        {
-            base.Initialize(i_Form);
-            
-            string colorStr;
-            if (!i_Form.TryGetValue("Color", out colorStr))
-            {
-                throw new KeyNotFoundException("missing color");
-            }
-
-            string numberOfDoorsStr;
-            if (!i_Form.TryGetValue("Number of doors", out numberOfDoorsStr))
-            {
-                throw new KeyNotFoundException("missing number of doors");
-            }
-            //TODO getter setter for both converting string to enum ... 
-            m_Color = colorStr;
-            m_NumOfDoors = numberOfDoorsStr;
-            //also need to initialize wheels
-        }
-
-        private eColor getColor(string i_Color)
-        {
-
-        }
-
-        public override Dictionary<string, string> MakeForm()
-        {
-            Dictionary<string, string> form = base.MakeForm();
-            form.Add("Color", null);
-            form.Add("Number of doors", null);
-            //TODO take care of wheels (also need make form perhaps?!)
-            return form;
-        }
+        
         public enum eColor
         {
             Grey,

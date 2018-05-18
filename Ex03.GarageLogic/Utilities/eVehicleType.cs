@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic
 {
-    class FueledTruck
+    /** Numbers represent the number of wheels per vehicle
+     *
+     */
+    public enum eVehicleType
     {
+        Truck = 12,
+        Car = 4,
+        MotorCycle = 2
     }
 }

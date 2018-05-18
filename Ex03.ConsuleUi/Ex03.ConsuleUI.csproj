@@ -41,7 +41,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBaseInitializer.cs" />
+    <Compile Include="GarageDashBoard.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="UserCommunicator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

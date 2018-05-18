@@ -13,7 +13,7 @@ namespace Ex03.GarageLogic
         private float m_AmountOfFuel;
         private float m_MaxFuelAmount;
 
-        public FuelEngine(eFuelType i_FuelType, float i_AmountOfFuel, float i_MaxFuelAmount)
+        protected internal FuelEngine(eFuelType i_FuelType, float i_AmountOfFuel, float i_MaxFuelAmount)
         {
             this.m_FuelType = i_FuelType;
             this.m_AmountOfFuel = i_AmountOfFuel;

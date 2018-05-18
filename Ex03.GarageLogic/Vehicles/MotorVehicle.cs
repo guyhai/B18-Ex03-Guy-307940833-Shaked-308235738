@@ -19,8 +19,7 @@ namespace Ex03.GarageLogic
         private eVehicleStatus m_Status = eVehicleStatus.inRepair;
 
 
-
-        protected MotorVehicle(List<Wheel> i_Wheels, string i_PlateNumber, string i_Manufacture,
+        protected internal MotorVehicle(List<Wheel> i_Wheels, string i_PlateNumber, string i_Manufacture,
             float i_EnergyPercentage, IEngine i_Engine)
         {
             m_Wheels = i_Wheels;
@@ -29,57 +28,7 @@ namespace Ex03.GarageLogic
             m_EnergyPercentage = i_EnergyPercentage;
         }
 
-        protected MotorVehicle()
-        {
-
-        }
-
-        public virtual void Initialize(Dictionary<string, string> i_Form)
-        {
-//            string ownerName;
-//            if (!i_Form.TryGetValue("Car Owner", out ownerName))
-//            {
-//                throw new KeyNotFoundException("Car Owner Missing");
-//            }
-//
-//            string ownerPhone;
-//            if (!i_Form.TryGetValue("Owner Phone", out ownerPhone))
-//            {
-//                throw new KeyNotFoundException("Owner Phone Missing");
-//            }
-
-            string manufacture;
-            if (!i_Form.TryGetValue("Car Manufacture", out manufacture))
-            {
-                throw new KeyNotFoundException("Car Manufacture Missing");
-            }
-
-            string energyPercent;
-            if (!i_Form.TryGetValue("Energy percentage", out energyPercent))
-            {
-                throw new KeyNotFoundException("Energy percentage Missing");
-            }
-
-            
-
-            m_Manufacture = manufacture;
-//            EnergyPercentage = energyPercent;
-
-        }
-        public virtual Dictionary<string, string> MakeForm()
-        {
-            Dictionary<string, string> form = new Dictionary<string, string>();
-            form.Add("Car Owner", null);
-            form.Add("Owner Phone", null);
-            form.Add("Car Manufacture", null);
-            form.Add("Energy percentage", null);
-
-            return form;
-        }
-
-
-
-
+       
         public enum eVehicleStatus
         {
             inRepair,
